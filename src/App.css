@@ -1,5 +1,21 @@
+
 .App {
+  background-color: burlywood;
+  height:100vh;
+  display: grid;
+  place-content: center;
   text-align: center;
+}
+
+.border{
+  border: 3px solid black;
+  padding: 40px 20px;
+  border-radius: 5%;
+}
+
+.regbody{
+  text-align: end;
+
 }
 
 .App-logo {
