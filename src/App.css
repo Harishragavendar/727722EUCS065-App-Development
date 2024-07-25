@@ -1,6 +1,5 @@
 
 .App {
-  background-color: burlywood;
   height:100vh;
   display: grid;
   place-content: center;
