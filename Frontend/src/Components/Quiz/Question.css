@@ -1,0 +1,63 @@
+/* src/Question.css */
+
+#qbox {
+  height: calc(100vh - 50px); /* Subtracting navbar height */
+  margin-top: 50px;
+  margin-left: 80px; /* Accounting for side panel width */
+  width: calc(100vw - 80px); /* Correct width calculation */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  background: url('../home2.jpeg') no-repeat center center;
+  background-size: cover;
+}
+
+.question-container {
+  text-align: center;
+  padding: 20px;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+}
+
+.question-container h1 {
+  color: white;
+}
+
+.answers {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.answer-button {
+  background-color: rgb(70, 152, 246);
+  border: 3px solid black;
+  width: 100%;
+  max-width: 60vw;
+  padding: 20px;
+  margin: 10px 0;
+  font-size: 18px;
+  font-weight: 400;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+.answer-button:hover {
+  background-color: #ddd;
+}
+
+#load {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: calc(100vh - 50px); /* Subtracting navbar height */
+  margin-top: 50px;
+  margin-left: 80px; /* Left margin for side panel */
+  width: calc(100vw - 80px); /* Correct width calculation */
+}

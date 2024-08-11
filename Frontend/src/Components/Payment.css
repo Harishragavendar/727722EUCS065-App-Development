@@ -1,0 +1,166 @@
+.payment-main-container {
+  height: calc(100vh - 50px); /* Subtracting navbar height */
+  margin-top: 50px;
+  margin-left: 80px; 
+  width: calc(100vw - 80px); /* Adjusting for side panel width */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url("home2.jpeg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.payment-container {
+  display: flex;
+  width: 60vw;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+#h2pay {
+  margin-bottom: 50px;
+}
+
+.card-preview {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.card-display {
+  position: relative;
+  width: 350px;
+  height: 200px;
+  padding: 20px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #007bff 30%, #6610f2 100%);
+  color: #fff;
+  font-family: 'Courier New', Courier, monospace;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card-number {
+  font-size: 1.4rem;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+}
+
+.card-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.card-name {
+  flex: 2;
+}
+
+.card-expiry {
+  flex: 1;
+  text-align: right;
+}
+
+.card-cvv {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+
+.payment-form {
+  flex: 1;
+}
+
+.payment-form h2 {
+  margin-bottom: 20px;
+  font-size: 1.6rem;
+  color: #333;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 1rem;
+  color: #666;
+}
+
+.form-group input[type="text"] {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.form-group input[type="text"]:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.2);
+}
+
+.form-group input[type="text"]::placeholder {
+  color: #999;
+}
+
+.pay-now-btn {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.pay-now-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Popup for payment success */
+.payment-success {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background-color: #d4edda;
+  color: #155724;
+  padding: 10px;
+  border-radius: 5px;
+  border-left: 5px solid #4caf50;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  transition: opacity 0.5s ease-in-out;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.success-message {
+  margin: 0;
+  text-align: center;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; }
+  20% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { opacity: 0; }
+}

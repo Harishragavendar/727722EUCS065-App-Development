@@ -1,0 +1,65 @@
+/* src/App.css */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f8ff;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+.flipbook-page {
+  padding: 0% 5% ;
+}
+
+.age-selector {
+  margin-bottom: 20px;
+}
+
+button {
+  margin: 20px 0px 5px 20px;
+  padding: 10px 20px;
+  background-color: #333;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#ageTag{
+  margin: 20px 0px 5px 20px;
+  
+}
+
+button:hover {
+  background-color: #555;
+}
+
+.flipbook-container {
+  display: flex;
+  flex-wrap: no-wrap;
+  justify-content: space-around;
+}
+
+.flipbook-item {
+  place-content: center;
+  flex: 1 0 25%;
+  margin: 20px;
+  padding: 25px 30px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.flipbook-item:hover {
+  transform: translateY(-5px);
+}
+
+.flipbook-title {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 1.2em;
+  color: #555;
+}

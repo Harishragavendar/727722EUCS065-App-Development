@@ -1,0 +1,63 @@
+.admin-page45 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: url('adminback.jpeg');
+  background-size: cover;
+  background-position: center;
+
+}
+
+.admin-login-container45 {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+
+}
+
+.admin-login-container45 h2 {
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: white;
+}
+
+.form-group45 {
+  margin-bottom: 1rem;
+}
+
+.form-group45 label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: white;
+}
+
+.form-group45 input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid black;
+  border-radius: 4px;
+  font-size: 1rem;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.login-button45 {
+  width: 335px;
+  padding: 0.75rem;
+  background-color: #1abc9c;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-button45:hover {
+  background-color: #16a085;
+}

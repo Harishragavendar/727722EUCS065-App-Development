@@ -1,0 +1,82 @@
+/* src/components/Navbar.css */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: black;
+  color: white;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 1000;
+  box-sizing: border-box; /* Ensure padding is included in the width */
+}
+
+.navbar-title {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-icon {
+  font-size: 1.5rem; /* Adjust icon size */
+  margin-right: 10px; /* Space between icon and text */
+}
+
+.navbar-title h1 {
+  margin: 0;
+  font-size: 1.7rem; /* Adjust font size as needed */
+  color: white;
+}
+
+.navbar-menu {
+  display: flex;
+  align-items: center;
+}
+
+.admin-login-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  margin-right: 20px; /* Space between the admin login button and account icon */
+}
+
+.admin-login-btn:hover {
+  color: #1abc9c; /* Change color on hover */
+}
+
+.account-icon {
+  position: relative;
+  cursor: pointer;
+}
+
+.account-icon-image {
+  font-size: 1.5rem; /* Adjust icon size */
+}
+
+.dropdown-menu {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  color: white;
+  border: 1px solid #333;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 5px 0;
+}
+
+.dropdown-item {
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.dropdown-item:hover {
+  background-color: white;
+}

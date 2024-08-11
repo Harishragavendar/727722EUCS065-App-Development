@@ -1,0 +1,7 @@
+.home-container {
+    height: calc(100vh - 50px); /* Subtracting navbar height */
+    margin-top: 50px;
+    margin-left: 80px; /* Accounting for side panel width */
+    width: calc(100vw - 80px); /* Adjusting for side panel width */
+    overflow-y: auto;
+}

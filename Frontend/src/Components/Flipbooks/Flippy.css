@@ -1,0 +1,92 @@
+/* src/App.css */
+
+.flipbook-page8 {
+  font-family: Arial, sans-serif;
+  color: white;
+  height: calc(100vh - 50px); /* Subtracting navbar height */
+  margin-top: 50px;
+  margin-left: 80px; /* Accounting for side panel width */
+  width: calc(100vw - 80px); /* Corrected width calculation */
+  padding: 2% 3%;
+  box-sizing: border-box;
+  background: url('../home2.jpeg') no-repeat center center;
+  background-size: cover; /* Include padding and border in the element's total width and height */
+}
+
+.age-selector8 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.ageBtn8 {
+  margin: 20px 5px;
+  padding: 10px 20px;
+  background-color: #333;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#ageTag8 {
+  margin: 20px 5px;
+}
+
+.ageBtn8:hover {
+  background-color: #555;
+}
+
+.flipbook-container8 {
+  display: flex;
+  flex-wrap: wrap; /* Allow wrapping of items */
+  justify-content: space-between;
+  gap: 10px; /* Space between items */
+}
+
+.flipbook-item8 {
+  flex: 1 0 30%; /* Adjusted for better responsiveness */
+  max-width: 30%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  transition: transform 0.3s ease;
+  text-align: center; /* Center content */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+.flipbook-item8:hover {
+  transform: translateY(-5px);
+}
+
+.flipbook-title8 {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 1.2em;
+  color: #555;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 1200px) {
+  .flipbook-item8 {
+    flex: 1 0 45%;
+    max-width: 45%;
+  }
+}
+
+@media (max-width: 768px) {
+  .flipbook-item8 {
+    flex: 1 0 100%;
+    max-width: 100%;
+    margin: 10px 0;
+  }
+
+  .ageBtn8 {
+    padding: 8px 16px;
+  }
+
+  .flipbook-title8 {
+    font-size: 1em;
+  }
+}

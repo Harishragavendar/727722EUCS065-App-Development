@@ -1,0 +1,80 @@
+{
+  "users": [
+    {
+      "id": "9204",
+      "firstName": "gowtham",
+      "lastName": "s",
+      "mobile": "12222",
+      "email": "gm@gmail.com",
+      "password": "gm"
+    },
+    {
+      "id": "4d2b",
+      "firstName": "akshay",
+      "lastName": "s",
+      "mobile": "456",
+      "email": "ak@gmail.com",
+      "password": "as"
+    }
+  ],
+  "admins": [
+    {
+      "id": "a993",
+      "firstName": "harish",
+      "lastName": "s",
+      "mobile": "455",
+      "email": "h@gmail.com",
+      "password": "as"
+    },
+    {
+      "id": "9c4c",
+      "firstName": "ASWIN",
+      "lastName": "S",
+      "mobile": "9488",
+      "email": "aswin@gmail.com",
+      "password": "aswin"
+    }
+  ],
+  "orders": [
+    {
+      "id": "d34b",
+      "orderId": 1722322572948,
+      "courseName": "Introduction to Coding",
+      "status": "Approved"
+    },
+    {
+      "id": "fced",
+      "orderId": 1723193033878,
+      "courseName": "Introduction to Coding",
+      "status": "pending"
+    },
+    {
+      "id": "8535",
+      "orderId": 1723193302097,
+      "courseName": "Introduction to Coding",
+      "status": "pending"
+    },
+    {
+      "id": "eb1a",
+      "orderId": 1723193412950,
+      "courseName": "Creative Art for Kids",
+      "status": "Approved"
+    },
+    {
+      "id": "c5eb",
+      "orderId": 1723194456061,
+      "courseName": "Introduction to Coding",
+      "status": "Approved"
+    },
+    {
+      "status": "Approved",
+      "id": "b9ef"
+    },
+    {
+      "id": "49b6",
+      "orderId": 1723197125281,
+      "courseName": "Introduction to Coding",
+      "status": "Approved"
+    }
+  ]
+}

@@ -1,0 +1,269 @@
+/* AdminDashboard.css */
+
+.admin-dashboard23 {
+  display: flex;
+  flex-direction: column;
+}
+
+.top-navbar23 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: black; /* Dark background for contrast */
+  color: white;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+}
+
+.navbar-content23 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Ensure vertical centering */
+  width: 100%;
+}
+
+.navbar-title23 {
+  font-size: 22px; /* Slightly larger font size */
+  margin-left: auto;
+  font-weight: bold; /* Emphasize the title */
+}
+
+.logout-button23 {
+  background-color: #e53935; /* Vibrant red for contrast */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-left: auto;
+  border-radius: 5px;
+  transition: background-color 0.3s, transform 0.3s; /* Smooth transitions */
+}
+
+.logout-button23:hover {
+  background-color: #c62828; /* Darker red on hover */
+  transform: scale(1.05); /* Slightly scale up on hover */
+}
+
+.logout-button23:focus {
+  outline: none; /* Remove default focus outline */
+}
+
+.logout-button23:active {
+  background-color: #b71c1c; /* Darker red on active press */
+}
+
+.dashboard-content23 {
+  display: flex;
+}
+
+.side-panel23 {
+  width: 200px;
+  background-color: black;
+  height: 90.8vh;
+  padding: 20px;
+}
+
+.side-panel23 ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.side-panel23 ul li {
+  margin-bottom: 15px;
+}
+
+.side-panel23 ul li a {
+  text-decoration: none;
+  color: #ecf0f1;
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  border-radius: 5px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.side-panel23 ul li a:hover {
+  background-color: #34495e;
+  color: #fff;
+}
+
+.side-panel23 ul li a.active {
+  background-color: #2980b9;
+  color: #fff;
+}
+
+.side-panel23 ul li a::before {
+  content: "\f007";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  margin-right: 10px;
+}
+
+.main-content23 {
+  flex-grow: 1;
+  padding: 20px;
+  background-image: url('./adminback.jpeg'); /* Update the path as needed */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 90.8vh;
+  color: #fff; /* Optional: ensures text is readable against the background image */
+}
+
+.user-list23,
+.add-user23,
+.add-admin23 {
+  margin-bottom: 20px;
+}
+
+/* Styling for User Management Table */
+.user-list23 {
+  background-color: rgba(0, 0, 0, 0.6); /* Slightly transparent background */
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+}
+
+.user-list23 table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.user-list23 table thead {
+  background-color: #333;
+  color: #fff;
+}
+
+.user-list23 table th {
+  padding: 12px 15px;
+  text-align: left;
+  font-weight: bold;
+}
+
+.user-list23 table tbody tr:nth-child(even) {
+  background-color: black;
+}
+
+.user-list23 table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+.user-list23 table td button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  margin-right: 10px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.user-list23 table td button:hover {
+  background-color: #45a049;
+}
+
+.add-user23 form input,
+.add-admin23 form input {
+  display: block;
+  margin-bottom: 10px;
+  padding: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid black;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.add-user23 form button,
+.add-admin23 form button {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.add-user23 form button:hover,
+.add-admin23 form button:hover {
+  background-color: #45a049;
+}
+
+.popup-message23 {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background-color: white;
+  color: black;
+  padding: 10px;
+  border-radius: 5px;
+  border-left: 5px solid #4caf50;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.popup-message23.hidden {
+  opacity: 0;
+}
+
+/* Styles for the Manage Orders section */
+.manage-orders23 {
+  margin: 20px;
+  font-size: 16px;
+}
+
+.manage-orders23 table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.manage-orders23 thead {
+  background-color: black;
+}
+
+.manage-orders23 thead th {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 2px solid #ddd;
+}
+
+.manage-orders23 tbody td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+.manage-orders23 tbody tr:hover {
+  background-color: black;
+}
+
+.manage-orders23 tbody tr {
+  height: 60px; /* Adjust this value as needed */
+}
+
+.manage-orders23 button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.manage-orders23 button:hover {
+  background-color: #0056b3;
+}
+
+/* Loading message */
+.manage-orders23 p {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+

@@ -1,0 +1,95 @@
+/* src/Components/Contact.css */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Montserrat:wght@400;600&display=swap');
+
+.contact-container {
+    height: calc(100vh - 50px); /* Subtracting navbar height */
+    margin-top: 50px;
+    margin-left: 80px; /* Accounting for side panel width */
+    width: calc(100vw - 80px); /* Adjusting for side panel width */
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+.all10 {
+    background: url('../Components/cbg1.jpg') no-repeat center center fixed;
+    background-size: cover;
+    width: 100%;
+    height: 100%; /* Ensuring it takes full height of its container */
+    padding: 20px;
+    box-sizing: border-box;
+    overflow: auto;
+}
+
+.details10 {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+    position: relative;
+    z-index: 1;
+}
+
+.head10 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.head10 i {
+    margin-right: 10px;
+}
+
+.desc10 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.contact-item10 {
+    margin: 20px 0;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+.contact-form10 {
+    margin-top: 20px;
+}
+
+.form-item10 {
+    margin-bottom: 15px;
+}
+
+.form-label10 {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.form-input10 {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.submit-button10 {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.submit-button10:hover {
+    background-color: #555;
+}
