@@ -1,70 +1,68 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import './AdminPage.css';
+import './LoginForm.css';
+import { FaUser, FaLock } from 'react-icons/fa';
+import { UserContext } from './UserContext';
 
-const AdminPage = () => {
-  const [email, setEmail] = useState('');
+const AdminLoginForm = () => {
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loginMessage, setLoginMessage] = useState('');
   const navigate = useNavigate();
+  const { setUserName1 } = useContext(UserContext);
 
-  const handleLogin = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const loginData = { username, password, role: 'ROLE_ADMIN' }; // Add role to the login data
+
     try {
-      // Fetch the list of admins from the server
-      const response = await axios.get('http://localhost:8080/admins');
-      const admins = response.data;
-
-      // Check if the provided credentials match any of the admins
-      const isValid = admins.some(admin => admin.email === email && admin.password === password);
-
-      if (isValid) {
-        setLoginMessage('Login successful');
-        
-        // Navigate to admin dashboard after login
-        navigate('/admin-dashboard'); 
-      } else {
-        setLoginMessage('Invalid email or password');
-      }
+      const response = await axios.post('http://localhost:8080/auth/login', loginData);
+      const token = response.data.token;
+      console.log('Token:', token);
+      localStorage.setItem('authToken', token);
+      setLoginMessage('Login successful');
+      setUserName1(username);
+      navigate('/admin-dashboard'); // Navigate to the admin dashboard
     } catch (error) {
-      console.error('Error fetching admins:', error);
-      setLoginMessage('An error occurred. Please try again later.');
+      setLoginMessage('Invalid username or password');
     }
   };
 
   return (
-    <div className="admin-page45">
-      <div className="admin-login-container45">
-        <h2>Admin Login</h2>
-        <form onSubmit={handleLogin}>
-          <div className="form-group45">
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-          <div className="form-group45">
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
-          <button type="submit" className="login-button45">Login</button>
-          {loginMessage && <p className="login-message">{loginMessage}</p>}
-        </form>
-      </div>
+    <div className="login-container">
+      <form className="login-form" onSubmit={handleSubmit}>
+        <h1 className="login-title">Admin Login</h1>
+        <FaUser className="login-input-icon" />
+        <input
+          className="login-input"
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          required
+        />
+        <FaLock className="login-input-icon" />
+        <input
+          className="login-input"
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+        <button className="login-button" type="submit">Login</button>
+        <div className="login-signup-link">
+          Don't have an account? <Link to="/register">Sign up</Link>
+        </div>
+        <div className="login-signup-link">
+          User? <Link to="/login"> Log in</Link>
+        </div>
+        {loginMessage && <p className="login-message">{loginMessage}</p>}
+      </form>
     </div>
   );
 };
 
-export default AdminPage;
+export default AdminLoginForm;

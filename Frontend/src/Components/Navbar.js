@@ -12,7 +12,7 @@ const Navbar = () => {
   };
 
   const handleAdmin = () => {
-    navigate('/admin-dashboard');
+    navigate('/admin');
   };
 
   const handleLogout = () => {

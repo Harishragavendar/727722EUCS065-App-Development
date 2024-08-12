@@ -89,7 +89,7 @@
 }
 
 .side-panel23 ul li a.active {
-  background-color: #2980b9;
+  background-color: #1abc9c;
   color: #fff;
 }
 
@@ -100,15 +100,13 @@
   margin-right: 10px;
 }
 
+
 .main-content23 {
   flex-grow: 1;
   padding: 20px;
-  background-image: url('./adminback.jpeg'); /* Update the path as needed */
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  background-color: #ecf0f1; /* Light gray background color */
   height: 90.8vh;
-  color: #fff; /* Optional: ensures text is readable against the background image */
+  color: #333; /* Darker text color for readability */
 }
 
 .user-list23,
@@ -117,9 +115,8 @@
   margin-bottom: 20px;
 }
 
-/* Styling for User Management Table */
 .user-list23 {
-  background-color: rgba(0, 0, 0, 0.6); /* Slightly transparent background */
+  background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent white */
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -132,7 +129,7 @@
 }
 
 .user-list23 table thead {
-  background-color: #333;
+  background-color: #333; /* Dark gray for header */
   color: #fff;
 }
 
@@ -143,7 +140,7 @@
 }
 
 .user-list23 table tbody tr:nth-child(even) {
-  background-color: black;
+  background-color: #f9f9f9; /* Light gray for even rows */
 }
 
 .user-list23 table td {
@@ -152,7 +149,7 @@
 }
 
 .user-list23 table td button {
-  background-color: #4CAF50;
+  background-color: #4CAF50; /* Green for buttons */
   color: white;
   border: none;
   padding: 6px 12px;
@@ -166,40 +163,75 @@
   background-color: #45a049;
 }
 
+.add-user23,
+.add-admin23 {
+  background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent white */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.add-user23 form,
+.add-admin23 form {
+  display: flex;
+  flex-direction: column;
+}
+
 .add-user23 form input,
 .add-admin23 form input {
   display: block;
-  margin-bottom: 10px;
-  padding: 8px;
+  margin-bottom: 15px;
+  padding: 10px;
   width: 100%;
   box-sizing: border-box;
-  border: 1px solid black;
-  color: white;
-  background-color: rgba(0, 0, 0, 0.6);
+  border: 1px solid #ddd;
+  border-radius: 4px; /* Rounded corners for input fields */
+  background-color: #fff; /* White background for inputs */
+  color: #333; /* Darker text color for readability */
 }
 
 .add-user23 form button,
 .add-admin23 form button {
   padding: 10px 20px;
-  background-color: #4CAF50;
+  background-color: #4CAF50; /* Green background for buttons */
   color: white;
   border: none;
+  border-radius: 4px; /* Rounded corners for buttons */
   cursor: pointer;
-  border-radius: 4px;
   font-size: 16px;
+  transition: background-color 0.3s, transform 0.3s; /* Smooth transitions */
 }
 
 .add-user23 form button:hover,
 .add-admin23 form button:hover {
-  background-color: #45a049;
+  background-color: #45a049; /* Slightly darker green on hover */
+  transform: scale(1.05); /* Slightly scale up on hover */
+}
+
+.add-user23 form button:focus,
+.add-admin23 form button:focus {
+  outline: none; /* Remove default focus outline */
+}
+
+.add-user23 form button:active,
+.add-admin23 form button:active {
+  background-color: #388e3c; /* Even darker green on active press */
+}
+
+.add-user23 p,
+.add-admin23 p {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px; /* Spacing above the form */
 }
 
 .popup-message23 {
   position: fixed;
   top: 10px;
   right: 10px;
-  background-color: white;
-  color: black;
+  background-color: #fff;
+  color: #333;
   padding: 10px;
   border-radius: 5px;
   border-left: 5px solid #4caf50;
@@ -212,7 +244,6 @@
   opacity: 0;
 }
 
-/* Styles for the Manage Orders section */
 .manage-orders23 {
   margin: 20px;
   font-size: 16px;
@@ -221,17 +252,29 @@
 .manage-orders23 table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
+  background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent white */
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .manage-orders23 thead {
-  background-color: black;
+  background-color: #333; /* Dark gray for header */
+  color: #fff;
 }
 
 .manage-orders23 thead th {
   padding: 12px 15px;
   text-align: left;
-  border-bottom: 2px solid #ddd;
+  font-weight: bold;
+}
+
+.manage-orders23 tbody tr:nth-child(even) {
+  background-color: #f9f9f9; /* Light gray for even rows */
+}
+
+.manage-orders23 tbody tr:hover {
+  background-color: #e0e0e0; /* Slightly darker gray on hover */
 }
 
 .manage-orders23 tbody td {
@@ -239,16 +282,8 @@
   border-bottom: 1px solid #ddd;
 }
 
-.manage-orders23 tbody tr:hover {
-  background-color: black;
-}
-
-.manage-orders23 tbody tr {
-  height: 60px; /* Adjust this value as needed */
-}
-
-.manage-orders23 button {
-  background-color: #007bff;
+.manage-orders23 tbody button {
+  background-color: #007bff; /* Blue for buttons */
   color: white;
   border: none;
   padding: 8px 12px;
@@ -256,14 +291,11 @@
   cursor: pointer;
 }
 
-.manage-orders23 button:hover {
+.manage-orders23 tbody button:hover {
   background-color: #0056b3;
 }
 
-/* Loading message */
 .manage-orders23 p {
   font-size: 18px;
   font-weight: bold;
 }
-
-
