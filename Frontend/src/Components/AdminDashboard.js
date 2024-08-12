@@ -23,6 +23,9 @@ const AdminDashboard = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  // Retrieve auth token from localStorage
+  const authToken = localStorage.getItem('authToken');
+
   useEffect(() => {
     fetchUsers();
     fetchAdmins();
@@ -31,7 +34,11 @@ const AdminDashboard = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/admin/users');
+      const response = await axios.get('http://localhost:8080/admin/users', {
+        headers: {
+          Authorization: `Bearer ${authToken}`
+        }
+      });
       setUsers(response.data);
     } catch (error) {
       console.error('Error fetching users:', error);
@@ -40,7 +47,11 @@ const AdminDashboard = () => {
 
   const fetchAdmins = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/admin/users'); // Adjust if needed
+      const response = await axios.get('http://localhost:8080/admin/admins', {
+        headers: {
+          Authorization: `Bearer ${authToken}`
+        }
+      });
       setAdmins(response.data);
     } catch (error) {
       console.error('Error fetching admins:', error);
@@ -50,7 +61,11 @@ const AdminDashboard = () => {
   const fetchOrders = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('http://localhost:8080/admin/get/orders');
+      const response = await axios.get('http://localhost:8080/admin/get/orders', {
+        headers: {
+          Authorization: `Bearer ${authToken}`
+        }
+      });
       setOrders(response.data);
     } catch (error) {
       console.error('Error fetching orders:', error);
@@ -79,7 +94,11 @@ const AdminDashboard = () => {
 
   const handleSave = async (id) => {
     try {
-      await axios.put(`http://localhost:8080/admin/editname?id=${id}&username=${editingUser.username}`);
+      await axios.put(`http://localhost:8080/admin/editname?id=${id}&username=${editingUser.username}`, null, {
+        headers: {
+          Authorization: `Bearer ${authToken}`
+        }
+      });
       setEditingUser(null);
       fetchUsers();
       showPopupMessage('User saved successfully!');
@@ -90,7 +109,12 @@ const AdminDashboard = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:8080/admin/deleteuser`, { data: { username: users.find(user => user.id === id).username } });
+      await axios.delete(`http://localhost:8080/admin/deleteuser`, {
+        data: { username: users.find(user => user.id === id).username },
+        headers: {
+          Authorization: `Bearer ${authToken}`
+        }
+      });
       fetchUsers();
       showPopupMessage('User deleted successfully!');
     } catch (error) {
@@ -100,7 +124,11 @@ const AdminDashboard = () => {
 
   const handleAddUser = async () => {
     try {
-      await axios.post('http://localhost:8080/admin/post/user', newUser);
+      await axios.post('http://localhost:8080/admin/post/user', newUser, {
+        headers: {
+          Authorization: `Bearer ${authToken}`
+        }
+      });
       setNewUser({
         username: '',
         email: '',
@@ -115,7 +143,11 @@ const AdminDashboard = () => {
 
   const handleAddAdmin = async () => {
     try {
-      await axios.post('http://localhost:8080/admin/post/admin', newAdmin);
+      await axios.post('http://localhost:8080/admin/post/admin', newAdmin, {
+        headers: {
+          Authorization: `Bearer ${authToken}`
+        }
+      });
       setNewAdmin({
         username: '',
         email: '',
@@ -133,7 +165,11 @@ const AdminDashboard = () => {
     const approvedOrder = { ...orderToApprove, status: 'Approved' };
 
     try {
-      await axios.put(`http://localhost:8080/admin/changestatus`, approvedOrder);
+      await axios.put(`http://localhost:8080/admin/changestatus`, approvedOrder, {
+        headers: {
+          Authorization: `Bearer ${authToken}`
+        }
+      });
       setOrders(orders.map(order => (order.id === id ? approvedOrder : order)));
       showPopupMessage('Order approved successfully!');
     } catch (error) {
@@ -142,7 +178,7 @@ const AdminDashboard = () => {
   };
 
   const handleSignOut = () => {
-    localStorage.removeItem('adminToken');
+    localStorage.removeItem('authToken');
     window.location.href = '/login';
   };
 
@@ -265,7 +301,7 @@ const AdminDashboard = () => {
                   handleAddUser();
                 }}
               >
-                <input
+                                <input
                   type="text"
                   name="username"
                   placeholder="Username"
