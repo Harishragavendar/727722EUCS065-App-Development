@@ -1,23 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import './AdminDashboard.css';
 import { FaSignOutAlt } from 'react-icons/fa';
+import axios from 'axios';
 
 const AdminDashboard = () => {
   const [users, setUsers] = useState([]);
   const [orders, setOrders] = useState([]);
   const [editingUser, setEditingUser] = useState(null);
   const [newUser, setNewUser] = useState({
-    firstName: '',
-    lastName: '',
-    mobile: '',
+    username: '',
     email: '',
     password: ''
   });
   const [admins, setAdmins] = useState([]);
   const [newAdmin, setNewAdmin] = useState({
-    firstName: '',
-    lastName: '',
-    mobile: '',
+    username: '',
     email: '',
     password: ''
   });
@@ -34,10 +31,8 @@ const AdminDashboard = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await fetch('http://localhost:8080/users');
-      if (!response.ok) throw new Error('Network response was not ok.');
-      const data = await response.json();
-      setUsers(data);
+      const response = await axios.get('http://localhost:8080/admin/users');
+      setUsers(response.data);
     } catch (error) {
       console.error('Error fetching users:', error);
     }
@@ -45,26 +40,24 @@ const AdminDashboard = () => {
 
   const fetchAdmins = async () => {
     try {
-      const response = await fetch('http://localhost:8080/admins');
-      if (!response.ok) throw new Error('Network response was not ok.');
-      const data = await response.json();
-      setAdmins(data);
+      const response = await axios.get('http://localhost:8080/admin/users'); // Adjust if needed
+      setAdmins(response.data);
     } catch (error) {
       console.error('Error fetching admins:', error);
     }
   };
 
   const fetchOrders = async () => {
+    setLoading(true);
     try {
-      const response = await fetch('http://localhost:8080/orders');
-      const data = await response.json();
-      console.log('Fetched Orders:', data); // Log data to check courseName
-      setOrders(data);
+      const response = await axios.get('http://localhost:8080/admin/get/orders');
+      setOrders(response.data);
     } catch (error) {
       console.error('Error fetching orders:', error);
+    } finally {
+      setLoading(false);
     }
   };
-  
 
   const showPopupMessage = (message) => {
     setPopupMessage(message);
@@ -86,13 +79,7 @@ const AdminDashboard = () => {
 
   const handleSave = async (id) => {
     try {
-      await fetch(`http://localhost:8080/users/${id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(editingUser)
-      });
+      await axios.put(`http://localhost:8080/admin/editname?id=${id}&username=${editingUser.username}`);
       setEditingUser(null);
       fetchUsers();
       showPopupMessage('User saved successfully!');
@@ -103,9 +90,7 @@ const AdminDashboard = () => {
 
   const handleDelete = async (id) => {
     try {
-      await fetch(`http://localhost:8080/users/${id}`, {
-        method: 'DELETE'
-      });
+      await axios.delete(`http://localhost:8080/admin/deleteuser`, { data: { username: users.find(user => user.id === id).username } });
       fetchUsers();
       showPopupMessage('User deleted successfully!');
     } catch (error) {
@@ -115,17 +100,9 @@ const AdminDashboard = () => {
 
   const handleAddUser = async () => {
     try {
-      await fetch('http://localhost:8080/users', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(newUser)
-      });
+      await axios.post('http://localhost:8080/admin/post/user', newUser);
       setNewUser({
-        firstName: '',
-        lastName: '',
-        mobile: '',
+        username: '',
         email: '',
         password: ''
       });
@@ -138,17 +115,9 @@ const AdminDashboard = () => {
 
   const handleAddAdmin = async () => {
     try {
-      await fetch('http://localhost:8080/admins', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(newAdmin)
-      });
+      await axios.post('http://localhost:8080/admin/post/admin', newAdmin);
       setNewAdmin({
-        firstName: '',
-        lastName: '',
-        mobile: '',
+        username: '',
         email: '',
         password: ''
       });
@@ -164,21 +133,13 @@ const AdminDashboard = () => {
     const approvedOrder = { ...orderToApprove, status: 'Approved' };
 
     try {
-      await fetch(`http://localhost:8080/orders/${id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(approvedOrder)
-      });
+      await axios.put(`http://localhost:8080/admin/changestatus`, approvedOrder);
       setOrders(orders.map(order => (order.id === id ? approvedOrder : order)));
       showPopupMessage('Order approved successfully!');
     } catch (error) {
       console.error('Error approving order:', error);
     }
   };
-  
-  
 
   const handleSignOut = () => {
     localStorage.removeItem('adminToken');
@@ -246,9 +207,7 @@ const AdminDashboard = () => {
                 <thead>
                   <tr>
                     <th>ID</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Mobile</th>
+                    <th>Username</th>
                     <th>Email</th>
                     <th>Actions</th>
                   </tr>
@@ -262,24 +221,8 @@ const AdminDashboard = () => {
                           <td>
                             <input
                               type="text"
-                              name="firstName"
-                              value={editingUser.firstName || ''}
-                              onChange={handleInputChange}
-                            />
-                          </td>
-                          <td>
-                            <input
-                              type="text"
-                              name="lastName"
-                              value={editingUser.lastName || ''}
-                              onChange={handleInputChange}
-                            />
-                          </td>
-                          <td>
-                            <input
-                              type="text"
-                              name="mobile"
-                              value={editingUser.mobile || ''}
+                              name="username"
+                              value={editingUser.username || ''}
                               onChange={handleInputChange}
                             />
                           </td>
@@ -299,9 +242,7 @@ const AdminDashboard = () => {
                       ) : (
                         <>
                           <td>{user.id}</td>
-                          <td>{user.firstName}</td>
-                          <td>{user.lastName}</td>
-                          <td>{user.mobile}</td>
+                          <td>{user.username}</td>
                           <td>{user.email}</td>
                           <td>
                             <button onClick={() => setEditingUser(user)}>Edit</button>
@@ -326,25 +267,9 @@ const AdminDashboard = () => {
               >
                 <input
                   type="text"
-                  name="firstName"
-                  placeholder="First Name"
-                  value={newUser.firstName}
-                  onChange={handleNewUserChange}
-                  required
-                />
-                <input
-                  type="text"
-                  name="lastName"
-                  placeholder="Last Name"
-                  value={newUser.lastName}
-                  onChange={handleNewUserChange}
-                  required
-                />
-                <input
-                  type="text"
-                  name="mobile"
-                  placeholder="Mobile"
-                  value={newUser.mobile}
+                  name="username"
+                  placeholder="Username"
+                  value={newUser.username}
                   onChange={handleNewUserChange}
                   required
                 />
@@ -379,26 +304,10 @@ const AdminDashboard = () => {
               >
                 <input
                   type="text"
-                  name="firstName"
-                  placeholder="First Name"
-                  value={newAdmin.firstName}
-                  onChange={(e) => setNewAdmin((prev) => ({ ...prev, firstName: e.target.value }))}
-                  required
-                />
-                <input
-                  type="text"
-                  name="lastName"
-                  placeholder="Last Name"
-                  value={newAdmin.lastName}
-                  onChange={(e) => setNewAdmin((prev) => ({ ...prev, lastName: e.target.value }))}
-                  required
-                />
-                <input
-                  type="text"
-                  name="mobile"
-                  placeholder="Mobile"
-                  value={newAdmin.mobile}
-                  onChange={(e) => setNewAdmin((prev) => ({ ...prev, mobile: e.target.value }))}
+                  name="username"
+                  placeholder="Username"
+                  value={newAdmin.username}
+                  onChange={(e) => setNewAdmin({ ...newAdmin, username: e.target.value })}
                   required
                 />
                 <input
@@ -406,7 +315,7 @@ const AdminDashboard = () => {
                   name="email"
                   placeholder="Email"
                   value={newAdmin.email}
-                  onChange={(e) => setNewAdmin((prev) => ({ ...prev, email: e.target.value }))}
+                  onChange={(e) => setNewAdmin({ ...newAdmin, email: e.target.value })}
                   required
                 />
                 <input
@@ -414,7 +323,7 @@ const AdminDashboard = () => {
                   name="password"
                   placeholder="Password"
                   value={newAdmin.password}
-                  onChange={(e) => setNewAdmin((prev) => ({ ...prev, password: e.target.value }))}
+                  onChange={(e) => setNewAdmin({ ...newAdmin, password: e.target.value })}
                   required
                 />
                 <button type="submit">Add Admin</button>
@@ -422,42 +331,48 @@ const AdminDashboard = () => {
             </div>
           )}
           {activeLink === '/admin-manage-orders' && (
-  <div className="manage-orders23">
-    <h3>Orders</h3>
-    {loading ? <p>Loading...</p> : (
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Course Name</th>
-            <th>Status</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {orders.map(order => (
-            <tr key={order.id}>
-              <td>{order.id}</td>
-              <td>{order.courseName}</td> {/* Ensure this is correctly mapped */}
-              <td>{order.status}</td>
-              <td>
-                {order.status !== 'Approved' && (
-                  <button onClick={() => handleApproveOrder(order.id)}>Approve</button>
-                )}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    )}
-  </div>
-)}
-
+            <div className="order-list23">
+              <h3>Manage Orders</h3>
+              {loading ? (
+                <p>Loading...</p>
+              ) : (
+                <table>
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Details</th>
+                      <th>Status</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {orders.map(order => (
+                      <tr key={order.id}>
+                        <td>{order.id}</td>
+                        <td>{order.details}</td>
+                        <td>{order.status}</td>
+                        <td>
+                          {order.status !== 'Approved' && (
+                            <button onClick={() => handleApproveOrder(order.id)}>Approve</button>
+                          )}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
+            </div>
+          )}
         </div>
       </div>
-      {showPopup && <div className="popup-message23">{popupMessage}</div>}
+      {showPopup && (
+        <div className="popup-message">
+          <p>{popupMessage}</p>
+        </div>
+      )}
     </div>
   );
 };
 
 export default AdminDashboard;
+

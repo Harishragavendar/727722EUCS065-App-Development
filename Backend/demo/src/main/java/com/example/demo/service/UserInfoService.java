@@ -1,6 +1,8 @@
 package com.example.demo.service;
 
+import com.example.demo.entity.Orders;
 import com.example.demo.entity.UserInfo;
+import com.example.demo.repository.OrdersRepository;
 import com.example.demo.repository.UserInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,7 +21,12 @@ public class UserInfoService implements UserDetailsService {
 
     @Autowired
     private PasswordEncoder encoder;
-
+    @Autowired
+    OrdersRepository orepo;
+    public void order(Orders obj)
+    {
+        orepo.save(obj);
+    }
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
