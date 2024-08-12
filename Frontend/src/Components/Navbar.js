@@ -12,10 +12,13 @@ const Navbar = () => {
   };
 
   const handleAdmin = () => {
-    navigate('/admin');
+    navigate('/admin-dashboard');
   };
 
   const handleLogout = () => {
+    // Clear the token from local storage
+    localStorage.removeItem('authToken');
+    // Navigate to the login page
     navigate('/login');
   };
 
