@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import Header from "../Components/Header/Header";
 import HeroSection from "../Components/Hero-Section/HeroSection";
 import CompanySection from "../Components/Company-section/Company";
@@ -16,14 +16,26 @@ const Home = () => {
   return (
     <div className="home-container">
       <Header />
-      <HeroSection />
-      <CompanySection />
-      <AboutUs />
-      <Courses />
-      <ChooseUs />
-      <Features />
-      <FreeCourse />
-      <Testimonials />
+      <section id="home">
+        <HeroSection />
+      </section>
+      <section id="about">
+        <CompanySection />
+        <AboutUs />
+      </section>
+      <section id="courses">
+        <Courses />
+      </section>
+      <section id="pages">
+        <ChooseUs />
+      </section>
+      <section id="blog">
+        <Features />
+      </section>
+      <section id="testimonials">
+        <FreeCourse />
+        <Testimonials />
+      </section>
       <Newsletter />
       <Footer />
     </div>

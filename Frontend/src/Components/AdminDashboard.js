@@ -1,45 +1,52 @@
 import React, { useEffect, useState } from 'react';
 import './AdminDashboard.css';
 import { FaSignOutAlt } from 'react-icons/fa';
-import axios from 'axios';
 
 const AdminDashboard = () => {
   const [users, setUsers] = useState([]);
   const [orders, setOrders] = useState([]);
+  const [payments, setPayments] = useState([]); 
   const [editingUser, setEditingUser] = useState(null);
   const [newUser, setNewUser] = useState({
-    username: '',
+    name: '',
     email: '',
-    password: ''
+    password: '',
+    roles: "ROLE_USER"
   });
   const [admins, setAdmins] = useState([]);
   const [newAdmin, setNewAdmin] = useState({
-    username: '',
+    name: '',
     email: '',
-    password: ''
+    password: '',
+    roles: "ROLE_ADMIN"
   });
   const [activeLink, setActiveLink] = useState('/admin-dashboard');
   const [popupMessage, setPopupMessage] = useState('');
   const [showPopup, setShowPopup] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  // Retrieve auth token from localStorage
-  const authToken = localStorage.getItem('authToken');
-
   useEffect(() => {
     fetchUsers();
     fetchAdmins();
     fetchOrders();
+    fetchPayments();
   }, []);
 
   const fetchUsers = async () => {
+    const token = localStorage.getItem('authToken');
+
     try {
-      const response = await axios.get('http://localhost:8080/admin/users', {
+      const response = await fetch('http://localhost:8080/admin/get/users', {
+        method: 'GET',
         headers: {
-          Authorization: `Bearer ${authToken}`
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
         }
       });
-      setUsers(response.data);
+
+      if (!response.ok) throw new Error('Network response was not ok.');
+      const data = await response.json();
+      setUsers(data);
     } catch (error) {
       console.error('Error fetching users:', error);
     }
@@ -47,33 +54,51 @@ const AdminDashboard = () => {
 
   const fetchAdmins = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/admin/admins', {
-        headers: {
-          Authorization: `Bearer ${authToken}`
-        }
-      });
-      setAdmins(response.data);
+      const response = await fetch('http://localhost:8080/admins');
+      if (!response.ok) throw new Error('Network response was not ok.');
+      const data = await response.json();
+      setAdmins(data);
     } catch (error) {
       console.error('Error fetching admins:', error);
     }
   };
 
   const fetchOrders = async () => {
-    setLoading(true);
+    const token = localStorage.getItem('authToken');
     try {
-      const response = await axios.get('http://localhost:8080/admin/get/orders', {
+      const response = await fetch('http://localhost:8080/admin/get/orders', {
+        method: 'GET',
         headers: {
-          Authorization: `Bearer ${authToken}`
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
         }
       });
-      setOrders(response.data);
+      if (!response.ok) throw new Error('Network response was not ok.');
+      const data = await response.json();
+      setOrders(data);
     } catch (error) {
       console.error('Error fetching orders:', error);
-    } finally {
-      setLoading(false);
     }
   };
 
+  const fetchPayments = async () => {
+    const token = localStorage.getItem('authToken');
+    try {
+      const response = await fetch('http://localhost:8080/admin/get', {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+      if (!response.ok) throw new Error('Network response was not ok.');
+      const data = await response.json();
+      setPayments(data);
+    } catch (error) {
+      console.error('Error fetching payments:', error);
+    }
+  };
+  
   const showPopupMessage = (message) => {
     setPopupMessage(message);
     setShowPopup(true);
@@ -92,12 +117,19 @@ const AdminDashboard = () => {
     setNewUser((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleNewAdminChange = (e) => {
+    const { name, value } = e.target;
+    setNewAdmin((prev) => ({ ...prev, [name]: value }));
+  };
+
   const handleSave = async (id) => {
     try {
-      await axios.put(`http://localhost:8080/admin/editname?id=${id}&username=${editingUser.username}`, null, {
+      await fetch(`http://localhost:8080/users/${id}`, {
+        method: 'PUT',
         headers: {
-          Authorization: `Bearer ${authToken}`
-        }
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(editingUser)
       });
       setEditingUser(null);
       fetchUsers();
@@ -109,30 +141,50 @@ const AdminDashboard = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:8080/admin/deleteuser`, {
-        data: { username: users.find(user => user.id === id).username },
+      const token = localStorage.getItem('authToken');
+      const response = await fetch(`http://localhost:8080/admin/deleteuser/${id}`, {
+        method: 'DELETE',
         headers: {
-          Authorization: `Bearer ${authToken}`
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
         }
       });
-      fetchUsers();
-      showPopupMessage('User deleted successfully!');
+
+      if (response.ok) {
+        fetchUsers();
+        showPopupMessage('User deleted successfully!');
+      } else {
+        const errorData = await response.json();
+        showPopupMessage(`Error deleting user: ${errorData.message || 'Unknown error'}`);
+      }
     } catch (error) {
       console.error('Error deleting user:', error);
+      showPopupMessage(`Error deleting user: ${error.message}`);
     }
   };
 
   const handleAddUser = async () => {
+    const token = localStorage.getItem('authToken');
+
     try {
-      await axios.post('http://localhost:8080/admin/post/user', newUser, {
+      await fetch('http://localhost:8080/auth/addNewUser', {
+        method: 'POST',
         headers: {
-          Authorization: `Bearer ${authToken}`
-        }
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          name: newUser.name,
+          email: newUser.email,
+          password: newUser.password,
+          roles: newUser.roles
+        })
       });
       setNewUser({
-        username: '',
+        name: '',
         email: '',
-        password: ''
+        password: '',
+        roles: 'ROLE_USER'
       });
       fetchUsers();
       showPopupMessage('User added successfully!');
@@ -143,13 +195,19 @@ const AdminDashboard = () => {
 
   const handleAddAdmin = async () => {
     try {
-      await axios.post('http://localhost:8080/admin/post/admin', newAdmin, {
+      const token = localStorage.getItem('authToken');
+      
+      await fetch('http://localhost:8080/auth/addNewUser', {
+        method: 'POST',
         headers: {
-          Authorization: `Bearer ${authToken}`
-        }
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(newAdmin)
       });
+      
       setNewAdmin({
-        username: '',
+        name: '',
         email: '',
         password: ''
       });
@@ -165,11 +223,17 @@ const AdminDashboard = () => {
     const approvedOrder = { ...orderToApprove, status: 'Approved' };
 
     try {
-      await axios.put(`http://localhost:8080/admin/changestatus`, approvedOrder, {
+      const token = localStorage.getItem('authToken');
+      
+      await fetch(`http://localhost:8080/admin/changestatus/${id}`, {
+        method: 'PUT',
         headers: {
-          Authorization: `Bearer ${authToken}`
-        }
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ id, status: 'Approved' })
       });
+      
       setOrders(orders.map(order => (order.id === id ? approvedOrder : order)));
       showPopupMessage('Order approved successfully!');
     } catch (error) {
@@ -191,7 +255,9 @@ const AdminDashboard = () => {
       <nav className="top-navbar23">
         <div className="navbar-content23">
           <span className="navbar-title23">Admin Dashboard</span>
-          <button className="logout-button23" onClick={handleSignOut}><FaSignOutAlt className="logout-icon" />Logout</button>
+          <button className="logout-button23" onClick={handleSignOut}>
+            <FaSignOutAlt className="logout-icon" />Logout
+          </button>
         </div>
       </nav>
       <div className="dashboard-content23">
@@ -203,7 +269,7 @@ const AdminDashboard = () => {
                 className={activeLink === '/admin-dashboard' ? 'active' : ''}
                 onClick={() => handleLinkClick('/admin-dashboard')}
               >
-                User Management
+                User/Admin Management
               </a>
             </li>
             <li>
@@ -233,6 +299,15 @@ const AdminDashboard = () => {
                 Manage Orders
               </a>
             </li>
+            <li>
+              <a
+                href="#"
+                className={activeLink === '/admin-manage-payments' ? 'active' : ''}
+                onClick={() => handleLinkClick('/admin-manage-payments')}
+              >
+                Manage Payments
+              </a>
+            </li>
           </ul>
         </aside>
         <div className="main-content23">
@@ -243,8 +318,9 @@ const AdminDashboard = () => {
                 <thead>
                   <tr>
                     <th>ID</th>
-                    <th>Username</th>
+                    <th>Name</th>
                     <th>Email</th>
+                    <th>Role</th>
                     <th>Actions</th>
                   </tr>
                 </thead>
@@ -257,8 +333,8 @@ const AdminDashboard = () => {
                           <td>
                             <input
                               type="text"
-                              name="username"
-                              value={editingUser.username || ''}
+                              name="Name"
+                              value={editingUser.name || ''}
                               onChange={handleInputChange}
                             />
                           </td>
@@ -278,10 +354,10 @@ const AdminDashboard = () => {
                       ) : (
                         <>
                           <td>{user.id}</td>
-                          <td>{user.username}</td>
+                          <td>{user.name}</td>
                           <td>{user.email}</td>
+                          <td>{user.roles}</td>
                           <td>
-                            <button onClick={() => setEditingUser(user)}>Edit</button>
                             <button onClick={() => handleDelete(user.id)}>Delete</button>
                           </td>
                         </>
@@ -301,11 +377,11 @@ const AdminDashboard = () => {
                   handleAddUser();
                 }}
               >
-                                <input
+                <input
                   type="text"
-                  name="username"
-                  placeholder="Username"
-                  value={newUser.username}
+                  name="name"
+                  placeholder="Name"
+                  value={newUser.name}
                   onChange={handleNewUserChange}
                   required
                 />
@@ -330,7 +406,7 @@ const AdminDashboard = () => {
             </div>
           )}
           {activeLink === '/admin-add-admin' && (
-            <div className="add-admin23">
+            <div className="add-user23">
               <h3>Add New Admin</h3>
               <form
                 onSubmit={(e) => {
@@ -340,10 +416,10 @@ const AdminDashboard = () => {
               >
                 <input
                   type="text"
-                  name="username"
-                  placeholder="Username"
-                  value={newAdmin.username}
-                  onChange={(e) => setNewAdmin({ ...newAdmin, username: e.target.value })}
+                  name="name"
+                  placeholder="Name"
+                  value={newAdmin.name}
+                  onChange={handleNewAdminChange}
                   required
                 />
                 <input
@@ -351,7 +427,7 @@ const AdminDashboard = () => {
                   name="email"
                   placeholder="Email"
                   value={newAdmin.email}
-                  onChange={(e) => setNewAdmin({ ...newAdmin, email: e.target.value })}
+                  onChange={handleNewAdminChange}
                   required
                 />
                 <input
@@ -359,7 +435,7 @@ const AdminDashboard = () => {
                   name="password"
                   placeholder="Password"
                   value={newAdmin.password}
-                  onChange={(e) => setNewAdmin({ ...newAdmin, password: e.target.value })}
+                  onChange={handleNewAdminChange}
                   required
                 />
                 <button type="submit">Add Admin</button>
@@ -367,16 +443,14 @@ const AdminDashboard = () => {
             </div>
           )}
           {activeLink === '/admin-manage-orders' && (
-            <div className="order-list23">
-              <h3>Manage Orders</h3>
-              {loading ? (
-                <p>Loading...</p>
-              ) : (
+            <div className="manage-orders23">
+              <h3>Orders</h3>
+              {loading ? <p>Loading...</p> : (
                 <table>
                   <thead>
                     <tr>
                       <th>ID</th>
-                      <th>Details</th>
+                      <th>Course Name</th>
                       <th>Status</th>
                       <th>Actions</th>
                     </tr>
@@ -385,7 +459,7 @@ const AdminDashboard = () => {
                     {orders.map(order => (
                       <tr key={order.id}>
                         <td>{order.id}</td>
-                        <td>{order.details}</td>
+                        <td>{order.coursename}</td>
                         <td>{order.status}</td>
                         <td>
                           {order.status !== 'Approved' && (
@@ -399,16 +473,40 @@ const AdminDashboard = () => {
               )}
             </div>
           )}
+          {activeLink === '/admin-manage-payments' && (
+            <div className="manage-orders23">
+              <h3>Payments</h3>
+              {loading ? <p>Loading...</p> : (
+                <table>
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>NAME</th>
+                      <th>CARD NUMBER</th>
+                      <th>CVV</th>
+                      <th>EXPIRY DATE</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {payments.map(payment => (
+                      <tr key={payment.id}>
+                        <td>{payment.id}</td>
+                        <td>{payment.name}</td>
+                        <td>{payment.cardNumber}</td>
+                        <td>{payment.cvv}</td>
+                        <td>{payment.expiryDate}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
+            </div>
+          )}
         </div>
       </div>
-      {showPopup && (
-        <div className="popup-message">
-          <p>{popupMessage}</p>
-        </div>
-      )}
+      {showPopup && <div className="popup-message23">{popupMessage}</div>}
     </div>
   );
 };
 
 export default AdminDashboard;
-

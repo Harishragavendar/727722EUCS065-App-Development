@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -57,5 +58,16 @@ public class AdminService
     {
         return orepo.findAll();
     }
-    
+    public boolean updateUser(int id, UserInfo updatedUser) {
+        Optional<UserInfo> userOpt = urepo.findById(id);
+        if (userOpt.isPresent()) {
+            UserInfo existingUser = userOpt.get();
+            existingUser.setName(updatedUser.getName());
+            existingUser.setEmail(updatedUser.getEmail());
+            // Update other fields as needed
+            urepo.save(existingUser);
+            return true;
+        }
+        return false;
+    }
 }

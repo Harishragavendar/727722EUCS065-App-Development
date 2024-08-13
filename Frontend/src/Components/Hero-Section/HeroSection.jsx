@@ -1,14 +1,21 @@
 import React from "react";
 import { Container, Row, Col } from "reactstrap";
-import heroImg from "../../assests/images/hero-img1.png";
+import heroVideo from "./hero-video.mp4"; // Replace with your video file path
 import "./hero-section.css";
 
 const HeroSection = () => {
-  
+  // Function to scroll to the #courses section
+  const handleScroll = () => {
+    const coursesSection = document.querySelector("#courses");
+    if (coursesSection) {
+      coursesSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
-    <section>
+    <section className="hero-section">
       <Container>
-        <Row>
+        <Row className="align-items-center">
           <Col lg="6" md="6">
             <div className="hero__content">
               <h2 className="mb-4 hero__title">
@@ -20,12 +27,21 @@ const HeroSection = () => {
                 your goals with flexible learning options tailored <br />
                 to fit your lifestyle.
               </p>
+              <button className=" explore__btn" onClick={handleScroll}>
+                Explore Now!
+              </button>
             </div>
-            <button className="btn explore__btn">Explore Now!</button>
           </Col>
 
           <Col lg="6" md="6">
-            <img src={heroImg} alt="" className="w-100 hero__img" />
+            <video
+              src={heroVideo}
+              className="w-100 hero__video"
+              autoPlay
+              loop
+              muted
+              playsInline
+            ></video>
           </Col>
         </Row>
       </Container>
