@@ -1,4 +1,3 @@
-// src/components/IntegratedFlipbookPage.js
 import React, { useState } from 'react';
 import './Flippy.css';
 import Flip1 from './Flip1';
@@ -28,6 +27,7 @@ const Flippy = () => {
 
   return (
     <div className="flipbook-page8">
+      <h1 id='fbtitle'>INTERACTIVE FLIPBOOKS</h1>
       <div className="age-selector8">
         <button className='ageBtn8' onClick={() => setAgeRange('0-3')}>0-3</button>
         <button className='ageBtn8' onClick={() => setAgeRange('4-6')}>4-6</button>

@@ -1,16 +1,15 @@
-/* src/App.css */
-
 .flipbook-page8 {
   font-family: Arial, sans-serif;
   color: white;
-  height: calc(100vh - 50px); /* Subtracting navbar height */
+  height: calc(100vh - 50px); /* Adjust for navbar height */
   margin-top: 50px;
-  margin-left: 80px; /* Accounting for side panel width */
-  width: calc(100vw - 80px); /* Corrected width calculation */
+  margin-left: 80px; /* Adjust for side panel width */
+  width: calc(100vw - 80px); /* Adjust for side panel width */
   padding: 2% 3%;
   box-sizing: border-box;
   background: url('../home2.jpeg') no-repeat center center;
-  background-size: cover; /* Include padding and border in the element's total width and height */
+  background-size: cover;
+  overflow: hidden; /* Prevent overflow */
 }
 
 .age-selector8 {
@@ -42,6 +41,7 @@
   flex-wrap: wrap; /* Allow wrapping of items */
   justify-content: space-between;
   gap: 10px; /* Space between items */
+  margin: 0 auto;
 }
 
 .flipbook-item8 {
@@ -54,6 +54,7 @@
   transition: transform 0.3s ease;
   text-align: center; /* Center content */
   box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  position: relative; /* Ensure proper alignment for the flipbook items */
 }
 
 .flipbook-item8:hover {
@@ -89,4 +90,8 @@
   .flipbook-title8 {
     font-size: 1em;
   }
+}
+
+#fbtitle{
+  text-align: center;
 }
