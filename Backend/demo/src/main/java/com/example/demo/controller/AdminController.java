@@ -3,6 +3,8 @@ package com.example.demo.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -76,4 +78,16 @@ public class AdminController {
     public List<Orders> getOrders() {
         return adminService.getorders();
     }
+    
+    @PutMapping("/edituser/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<String> editUser(@PathVariable int id, @RequestBody UserInfo updatedUser) {
+        boolean success = adminService.updateUser(id, updatedUser);
+        if (success) {
+            return ResponseEntity.ok("User updated successfully");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+        }
+    }
+
 }

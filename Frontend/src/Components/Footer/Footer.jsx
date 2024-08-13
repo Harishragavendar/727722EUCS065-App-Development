@@ -6,21 +6,21 @@ import "./footer.css";
 const footerQuickLinks = [
   {
     display: "Home",
-    url: "#",
+    url: "#home",
   },
   {
     display: "About US",
-    url: "#",
+    url: "#about",
   },
 
   {
     display: "Courses",
-    url: "#",
+    url: "#courses",
   },
 
   {
     display: "Blog",
-    url: "#",
+    url: "#blog",
   },
 ];
 
@@ -113,7 +113,7 @@ const Footer = () => {
 
           <Col lg="3" md="6">
             <h6 className="fw-bold">Get in Touch</h6>
-
+              <br/>
             <p>Address: Coimbatore, India</p>
             <p> Phone: +91 0123456789 </p>
             <p>Email: example@gmail.com</p>
