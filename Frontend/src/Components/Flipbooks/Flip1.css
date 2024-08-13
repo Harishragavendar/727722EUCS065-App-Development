@@ -1,0 +1,115 @@
+/* Flip effect container */
+.flipbook-item {
+    perspective: 1000px; /* Give a perspective for the 3D flip effect */
+  }
+  
+  .flip-container {
+    width: 100%;
+    max-width: 400px;
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .flipper {
+    position: relative;
+    width: 100%;
+    height: 260px;
+    transform-style: preserve-3d;
+    transition: 0.6s;
+    transform: rotateY(0deg);
+  }
+  
+  .flip-container:hover .flipper {
+    transform: rotateY(180deg); /* Flip the container */
+  }
+  
+  .front, .back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+  }
+  
+  .front {
+    z-index: 2; /* Make sure the front is on top */
+  }
+  
+  .back {
+    transform: rotateY(180deg); /* Rotate the back to be visible on flip */
+  }
+  
+  .flip-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover; /* Ensure images cover the container without stretching */
+  }
+  
+  .back-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-align: center;
+  }
+  
+  .back-content .fp-link {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    background: #333;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .back-content .fp-link:hover {
+    background-color: #555;
+  }
+  
+  /* Ensure that the modal's overlay covers the entire viewport */
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000; /* Ensure the modal is on top of other content */
+    overflow: hidden; /* Prevent scrolling */
+  }
+  
+  /* Style the modal itself */
+  .flipbook-modal {
+    position: relative;
+    background-color: white;
+    padding: 0;
+    border-radius: 10px;
+    max-width: 90vw;
+    max-height: 90vh;
+    overflow: hidden; 
+  }
+  
+  /* Style the close button */
+  .close-modal {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 55px;
+    background: #333;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 1.5rem;
+    z-index: 1020; /* Ensure close button is on top */
+  }
+  
+  .close-modal:hover {
+    background: #555;
+  }
+  
