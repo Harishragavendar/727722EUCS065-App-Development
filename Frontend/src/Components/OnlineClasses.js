@@ -51,15 +51,12 @@ const OnlineClasses = () => {
   ];
 
   const handleEnroll = async (courseTitle) => {
-    const orderId = Date.now(); // Generate a unique order ID
     const enrollmentData = {
-      orderId,
-      courseName: courseTitle,
-      status: 'pending'
+      coursename: courseTitle
     };
 
     try {
-      const response = await fetch('http://localhost:8080/orders', {
+      const response = await fetch('http://localhost:8080/auth/order', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

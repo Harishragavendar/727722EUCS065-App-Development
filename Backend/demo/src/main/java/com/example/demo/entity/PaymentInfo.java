@@ -1,5 +1,4 @@
 package com.example.demo.entity;
-import java.sql.Date;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,11 +12,8 @@ public class PaymentInfo
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int id;
     String name;
-    Date date;
-    int cardNumber;
-    int cvv;
-    Date expiryDate;
-    int amount;
+    String cardNumber;
+    String cvv;
     public int getId() {
         return id;
     }
@@ -30,36 +26,23 @@ public class PaymentInfo
     public void setName(String name) {
         this.name = name;
     }
-    public Date getDate() {
-        return date;
-    }
-    public void setDate(Date date) {
-        this.date = date;
-    }
-    public int getCardNumber() {
+    public String getCardNumber() {
         return cardNumber;
     }
-    public void setCardNumber(int cardNumber) {
+    public void setCardNumber(String cardNumber) {
         this.cardNumber = cardNumber;
     }
-    public int getCvv() {
+    public String getCvv() {
         return cvv;
     }
-    public void setCvv(int cvv) {
+    public void setCvv(String cvv) {
         this.cvv = cvv;
     }
-    public Date getExpiryDate() {
+    public String getExpiryDate() {
         return expiryDate;
     }
-    public void setExpiryDate(Date expiryDate) {
+    public void setExpiryDate(String expiryDate) {
         this.expiryDate = expiryDate;
     }
-    public int getAmount() {
-        return amount;
-    }
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
-    
+    String expiryDate;
 }
-

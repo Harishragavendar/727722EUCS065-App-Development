@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -23,10 +24,15 @@ public class UserInfoService implements UserDetailsService {
     private PasswordEncoder encoder;
     @Autowired
     OrdersRepository orepo;
-    public void order(Orders obj)
-    {
-        orepo.save(obj);
+
+    @Autowired
+    private UserInfoRepository useriInfoRepository;
+
+    public UserInfo getUserByUsername(String username) {
+        return useriInfoRepository.findByName(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
@@ -42,6 +48,9 @@ public class UserInfoService implements UserDetailsService {
         repository.save(userInfo);
         return "User Added Successfully";
     }
-
+    public void order(Orders obj)
+    {
+        orepo.save(obj);
+    }
 
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.Orders;
+import com.example.demo.entity.PaymentInfo;
 import com.example.demo.entity.UserInfo;
 import com.example.demo.repository.OrdersRepository;
 import com.example.demo.repository.PaymentRepository;
@@ -29,34 +30,16 @@ public class AdminService
     {
         urepo.save(obj);
     }
-    public List<UserInfo> getAllUsers()
+    public void changestatus(int id)
     {
-       return urepo.findAll();
-    }
-    public void changestatus(Orders obj)
-    {
+        Orders obj=orepo.findById(id).get();
         obj.setStatus("Approved");
         orepo.save(obj);
     }
-    public void deleteuser(UserInfo obj)
+    public void deleteuser(int id)
     {
+        UserInfo obj=urepo.findById(id).get();
         urepo.delete(obj);
-    }
-    public void changename(int id,String name)
-    {
-        UserInfo user=urepo.findById(id).get();
-        user.setName(name);
-        urepo.save(user);
-    }
-    public void changeemail(int id,String email)
-    {
-        UserInfo user=urepo.findById(id).get();
-        user.setEmail(email);
-        urepo.save(user);
-    }
-    public List<Orders> getorders()
-    {
-        return orepo.findAll();
     }
     public boolean updateUser(int id, UserInfo updatedUser) {
         Optional<UserInfo> userOpt = urepo.findById(id);
@@ -69,5 +52,17 @@ public class AdminService
             return true;
         }
         return false;
+    }
+    public List<Orders> getorders()
+    {
+        return orepo.findAll();
+    }
+    public List<UserInfo> getusers()
+    {
+        return urepo.findAll();
+    }
+    public List<PaymentInfo> info()
+    {
+        return prepo.findAll();
     }
 }

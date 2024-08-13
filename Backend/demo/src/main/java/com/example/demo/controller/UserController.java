@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.entity.AuthRequest;
+import com.example.demo.entity.Orders;
 import com.example.demo.entity.UserInfo;
 import com.example.demo.service.JwtService;
 import com.example.demo.service.UserInfoService;
@@ -58,14 +59,25 @@ public class UserController {
         Authentication authentication = authenticationManager.authenticate(
             new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword())
         );
+
         if (authentication.isAuthenticated()) {
-            String token = jwtService.generateToken(authRequest.getUsername());
-            Map<String, String> response = new HashMap<>();
-            response.put("token", token);
-            return ResponseEntity.ok(response);
+            UserInfo userInfo = service.getUserByUsername(authRequest.getUsername());
+            if (userInfo.getRoles().equals(authRequest.getRole())) {
+                String token = jwtService.generateToken(authRequest.getUsername());
+                Map<String, String> response = new HashMap<>();
+                response.put("token", token);
+                return ResponseEntity.ok(response);
+            } else {
+                throw new UsernameNotFoundException("Invalid role for the user!");
+            }
         } else {
             throw new UsernameNotFoundException("Invalid username or password!");
         }
+    }
+    @PostMapping("/order")
+    public void order(@RequestBody Orders obj)
+    {
+        service.order(obj);
     }
 
 }

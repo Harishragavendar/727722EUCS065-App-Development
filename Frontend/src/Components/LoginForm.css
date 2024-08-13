@@ -77,3 +77,29 @@
   color: red;
   text-align: center;
 }
+
+.login-input::placeholder {
+  color: white;
+}
+
+.login-popup-message {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background-color: #4caf50; /* Green background for success */
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  transition: opacity 0.5s ease-in-out;
+  opacity: 1;
+}
+
+.login-popup-message.error {
+  background-color: #f44336; /* Red background for errors */
+}
+
+.login-popup-message.hidden {
+  opacity: 0;
+}

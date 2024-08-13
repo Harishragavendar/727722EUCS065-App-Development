@@ -5,25 +5,28 @@ import { FaSignOutAlt } from 'react-icons/fa';
 const AdminDashboard = () => {
   const [users, setUsers] = useState([]);
   const [orders, setOrders] = useState([]);
-  const [payments, setPayments] = useState([]); 
+  const [payments, setPayments] = useState([]);
   const [editingUser, setEditingUser] = useState(null);
   const [newUser, setNewUser] = useState({
     name: '',
     email: '',
     password: '',
-    roles: "ROLE_USER"
+    roles: 'ROLE_USER'
   });
   const [admins, setAdmins] = useState([]);
   const [newAdmin, setNewAdmin] = useState({
     name: '',
     email: '',
     password: '',
-    roles: "ROLE_ADMIN"
+    roles: 'ROLE_ADMIN'
   });
   const [activeLink, setActiveLink] = useState('/admin-dashboard');
   const [popupMessage, setPopupMessage] = useState('');
   const [showPopup, setShowPopup] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  // Retrieve the token from localStorage
+  const token = localStorage.getItem('authToken');
 
   useEffect(() => {
     fetchUsers();
@@ -33,8 +36,6 @@ const AdminDashboard = () => {
   }, []);
 
   const fetchUsers = async () => {
-    const token = localStorage.getItem('authToken');
-
     try {
       const response = await fetch('http://localhost:8080/admin/get/users', {
         method: 'GET',
@@ -54,7 +55,14 @@ const AdminDashboard = () => {
 
   const fetchAdmins = async () => {
     try {
-      const response = await fetch('http://localhost:8080/admins');
+      const response = await fetch('http://localhost:8080/admins', {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
       if (!response.ok) throw new Error('Network response was not ok.');
       const data = await response.json();
       setAdmins(data);
@@ -64,7 +72,6 @@ const AdminDashboard = () => {
   };
 
   const fetchOrders = async () => {
-    const token = localStorage.getItem('authToken');
     try {
       const response = await fetch('http://localhost:8080/admin/get/orders', {
         method: 'GET',
@@ -73,6 +80,7 @@ const AdminDashboard = () => {
           'Content-Type': 'application/json'
         }
       });
+
       if (!response.ok) throw new Error('Network response was not ok.');
       const data = await response.json();
       setOrders(data);
@@ -93,12 +101,14 @@ const AdminDashboard = () => {
       });
       if (!response.ok) throw new Error('Network response was not ok.');
       const data = await response.json();
+      console.log(data); // Log the data to see what is returned
       setPayments(data);
     } catch (error) {
       console.error('Error fetching payments:', error);
     }
   };
   
+
   const showPopupMessage = (message) => {
     setPopupMessage(message);
     setShowPopup(true);
@@ -123,25 +133,30 @@ const AdminDashboard = () => {
   };
 
   const handleSave = async (id) => {
+    const token = localStorage.getItem('authToken'); // Retrieve the access token from localStorage
+    
     try {
-      await fetch(`http://localhost:8080/users/${id}`, {
+      await fetch(`http://localhost:8080/admin/edituser/${id}`, {
         method: 'PUT',
         headers: {
+          'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(editingUser)
       });
+  
       setEditingUser(null);
       fetchUsers();
       showPopupMessage('User saved successfully!');
     } catch (error) {
       console.error('Error saving user:', error);
+      showPopupMessage('Error saving user.');
     }
   };
+  
 
   const handleDelete = async (id) => {
     try {
-      const token = localStorage.getItem('authToken');
       const response = await fetch(`http://localhost:8080/admin/deleteuser/${id}`, {
         method: 'DELETE',
         headers: {
@@ -164,21 +179,14 @@ const AdminDashboard = () => {
   };
 
   const handleAddUser = async () => {
-    const token = localStorage.getItem('authToken');
-
     try {
       await fetch('http://localhost:8080/auth/addNewUser', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-          name: newUser.name,
-          email: newUser.email,
-          password: newUser.password,
-          roles: newUser.roles
-        })
+        body: JSON.stringify(newUser)
       });
       setNewUser({
         name: '',
@@ -195,21 +203,20 @@ const AdminDashboard = () => {
 
   const handleAddAdmin = async () => {
     try {
-      const token = localStorage.getItem('authToken');
-      
       await fetch('http://localhost:8080/auth/addNewUser', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify(newAdmin)
       });
-      
+
       setNewAdmin({
         name: '',
         email: '',
-        password: ''
+        password: '',
+        roles: 'ROLE_ADMIN'
       });
       fetchAdmins();
       showPopupMessage('Admin added successfully!');
@@ -223,17 +230,15 @@ const AdminDashboard = () => {
     const approvedOrder = { ...orderToApprove, status: 'Approved' };
 
     try {
-      const token = localStorage.getItem('authToken');
-      
       await fetch(`http://localhost:8080/admin/changestatus/${id}`, {
         method: 'PUT',
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({ id, status: 'Approved' })
       });
-      
+
       setOrders(orders.map(order => (order.id === id ? approvedOrder : order)));
       showPopupMessage('Order approved successfully!');
     } catch (error) {
@@ -256,7 +261,7 @@ const AdminDashboard = () => {
         <div className="navbar-content23">
           <span className="navbar-title23">Admin Dashboard</span>
           <button className="logout-button23" onClick={handleSignOut}>
-            <FaSignOutAlt className="logout-icon" />Logout
+            <FaSignOutAlt className="logout-icon" /> Logout
           </button>
         </div>
       </nav>
@@ -313,7 +318,7 @@ const AdminDashboard = () => {
         <div className="main-content23">
           {activeLink === '/admin-dashboard' && (
             <div className="user-list23">
-              <h3>Users</h3>
+              <h2>User Management</h2>
               <table>
                 <thead>
                   <tr>
@@ -325,24 +330,23 @@ const AdminDashboard = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {users.map(user => (
+                  {users.map((user) => (
                     <tr key={user.id}>
                       {editingUser?.id === user.id ? (
                         <>
-                          <td>{user.id}</td>
                           <td>
                             <input
                               type="text"
-                              name="Name"
-                              value={editingUser.name || ''}
+                              name="name"
+                              value={editingUser.name}
                               onChange={handleInputChange}
                             />
                           </td>
                           <td>
                             <input
-                              type="email"
+                              type="text"
                               name="email"
-                              value={editingUser.email || ''}
+                              value={editingUser.email}
                               onChange={handleInputChange}
                             />
                           </td>
@@ -358,6 +362,7 @@ const AdminDashboard = () => {
                           <td>{user.email}</td>
                           <td>{user.roles}</td>
                           <td>
+                            <button onClick={() => setEditingUser(user)}>Edit</button>
                             <button onClick={() => handleDelete(user.id)}>Delete</button>
                           </td>
                         </>

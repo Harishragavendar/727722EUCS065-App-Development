@@ -5,89 +5,74 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.entity.Orders;
+import com.example.demo.entity.PaymentInfo;
 import com.example.demo.entity.UserInfo;
 import com.example.demo.service.AdminService;
 
 @RestController
-@RequestMapping("/admin")
 @CrossOrigin(origins = "http://localhost:3000")
-public class AdminController {
-
+@RequestMapping("/admin")
+public class AdminController 
+{
     @Autowired
-    AdminService adminService;
-
-    // Get all users
-    @GetMapping("/users")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public List<UserInfo> getAllUsers() {
-        return adminService.getAllUsers();  // Ensure this method exists in your service
-    }
-
-    // Add new admin
+    AdminService service;
     @PostMapping("/post/admin")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public String addAdmin(@RequestBody UserInfo obj) {
-        adminService.addadmin(obj);
-        return "Admin added successfully";
+    public String addadmin(@RequestBody UserInfo obj)
+    {
+        obj.setRoles("ROLE_ADMIN");
+        service.addadmin(obj);
+        return "admin added successfully";
     }
-
-    // Add new user
     @PostMapping("/post/user")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public String addUser(@RequestBody UserInfo obj) {
-        adminService.adduser(obj);
-        return "User added successfully";
+    public String adduser(@RequestBody UserInfo obj)
+    {
+        service.adduser(obj);
+        return "admin added successfully";
     }
-
-    // Change order status
-    @PutMapping("/changestatus")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public String changeStatus(@RequestBody Orders obj) {
-        adminService.changestatus(obj);
-        return "Order approved";
+    @PutMapping("/changestatus/{id}")
+    public String changestatus(@PathVariable int id)
+    {
+        service.changestatus(id);
+        return "order approved";
     }
-
-    // Delete user
-    @DeleteMapping("/deleteuser")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public void deleteUser(@RequestBody UserInfo obj) {
-        adminService.deleteuser(obj);
+    @DeleteMapping("/deleteuser/{id}")
+    public void deleteuser(@PathVariable int id)
+    {
+        service.deleteuser(id);
     }
-
-    // Change user name
-    @PutMapping("/editname")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public void changeName(int id, String name) {
-        adminService.changename(id, name);
-    }
-
-    // Change user email
-    @PutMapping("/editemail")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public void changeEmail(int id, String email) {
-        adminService.changeemail(id, email);
-    }
-
-    // Get all orders
-    @GetMapping("/get/orders")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public List<Orders> getOrders() {
-        return adminService.getorders();
-    }
-    
     @PutMapping("/edituser/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<String> editUser(@PathVariable int id, @RequestBody UserInfo updatedUser) {
-        boolean success = adminService.updateUser(id, updatedUser);
+        boolean success = service.updateUser(id, updatedUser);
         if (success) {
             return ResponseEntity.ok("User updated successfully");
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
         }
     }
-
+    @GetMapping("/get/orders")
+    public List<Orders> getorders()
+    {
+        return service.getorders();
+    }
+    @GetMapping("get/users")
+    public List<UserInfo> getusers()
+    {
+        return service.getusers();
+    }
+    @GetMapping("/get")
+    public List<PaymentInfo> info()
+    {
+        return service.info();
+    }
 }

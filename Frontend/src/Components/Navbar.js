@@ -11,9 +11,6 @@ const Navbar = () => {
     setShowDropdown(!showDropdown);
   };
 
-  const handleAdmin = () => {
-    navigate('/admin');
-  };
 
   const handleLogout = () => {
     // Clear the token from local storage
@@ -29,9 +26,6 @@ const Navbar = () => {
         <h1>EduGo!</h1>
       </div>
       <div className="navbar-menu">
-        <button className="admin-login-btn" onClick={handleAdmin}>
-          <FaSignInAlt /> Admin Login
-        </button>
         <div className="account-icon" onClick={handleDropdownToggle}>
           <FaUserCircle className="account-icon-image" />
           {showDropdown && (

@@ -5,7 +5,7 @@ import './LoginForm.css';
 import { FaUser, FaLock } from 'react-icons/fa';
 import { UserContext } from './UserContext';
 
-const AdminPage = () => {
+const AdminLoginForm = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loginMessage, setLoginMessage] = useState('');
@@ -15,11 +15,10 @@ const AdminPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const loginData = { username, password };
+    const loginData = { username, password, role: 'ROLE_ADMIN' };
 
     try {
       const response = await axios.post('http://localhost:8080/auth/login', loginData);
-      console.log('Response:', response); // Debug the response structure
       const token = response.data.token;
       console.log('Token:', token);
       localStorage.setItem('authToken', token);
@@ -27,8 +26,7 @@ const AdminPage = () => {
       setUserName1(username);
       navigate('/admin-dashboard'); // Navigate to the admin dashboard
     } catch (error) {
-      console.error('Login Error:', error.response ? error.response.data : error.message);
-      setLoginMessage(error.response?.data?.message || 'Invalid username or password');
+      setLoginMessage('Invalid username or password');
     }
   };
 
@@ -67,4 +65,4 @@ const AdminPage = () => {
   );
 };
 
-export default AdminPage;
+export default AdminLoginForm;

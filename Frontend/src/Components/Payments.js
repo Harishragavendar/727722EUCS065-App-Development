@@ -7,6 +7,7 @@ const Payment = () => {
   const [expiryDate, setExpiryDate] = useState('');
   const [cvv, setCvv] = useState('');
   const [paymentSuccess, setPaymentSuccess] = useState(false);
+  const [errors, setErrors] = useState({});
 
   const handleCardNumberChange = (e) => {
     const value = e.target.value.replace(/\s+/g, ''); // Remove spaces
@@ -39,11 +40,57 @@ const Payment = () => {
     return date.slice(0, 2) + '/' + date.slice(2); // MM/YY
   };
 
+  const validateFields = () => {
+    const newErrors = {};
+
+    // Validate fields
+    if (!cardNumber) newErrors.cardNumber = 'Card number is required.';
+    if (!cardName) newErrors.cardName = 'Cardholder name is required.';
+    if (!expiryDate) newErrors.expiryDate = 'Expiry date is required.';
+    if (!cvv) newErrors.cvv = 'CVV is required.';
+
+    setErrors(newErrors);
+
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handlePayNow = () => {
-    // Simulate a payment process
-    setTimeout(() => {
-      setPaymentSuccess(true);
-    }, 1000); // Simulate a delay
+    if (!validateFields()) {
+      return;
+    }
+
+    const paymentInfo = {
+      name: cardName,
+      cardNumber,
+      cvv,
+      expiryDate: formatExpiryDate(expiryDate),
+    };
+
+    const authToken = localStorage.getItem('authToken');
+    setPaymentSuccess(true);
+    fetch('http://localhost:8080/payment/post', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${authToken}`,
+      },
+      body: JSON.stringify(paymentInfo),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('Payment success:', data);
+        setPaymentSuccess(true);
+        setErrors({}); // Clear errors on success
+        // Optionally reset form fields
+        setCardNumber('');
+        setCardName('');
+        setExpiryDate('');
+        setCvv('');
+      })
+      .catch((error) => {
+        console.error('Payment error:', error);
+        // Optionally handle the error
+      });
   };
 
   return (
@@ -71,6 +118,7 @@ const Payment = () => {
               onChange={handleCardNumberChange}
               placeholder="Enter your card number"
             />
+            {errors.cardNumber && <div className="error-message">{errors.cardNumber}</div>}
           </div>
           <div className="form-group">
             <label htmlFor="cardName">Cardholder Name</label>
@@ -80,8 +128,8 @@ const Payment = () => {
               value={cardName}
               onChange={handleCardNameChange}
               placeholder="Enter your name"
-              required
             />
+            {errors.cardName && <div className="error-message">{errors.cardName}</div>}
           </div>
           <div className="form-group">
             <label htmlFor="expiryDate">Expiry Date (MM/YY)</label>
@@ -92,8 +140,8 @@ const Payment = () => {
               value={formatExpiryDate(expiryDate)}
               onChange={handleExpiryDateChange}
               placeholder="MM/YY"
-              required
             />
+            {errors.expiryDate && <div className="error-message">{errors.expiryDate}</div>}
           </div>
           <div className="form-group">
             <label htmlFor="cvv">CVV</label>
@@ -105,8 +153,9 @@ const Payment = () => {
               onChange={handleCvvChange}
               placeholder="CVV"
             />
+            {errors.cvv && <div className="error-message">{errors.cvv}</div>}
           </div>
-          <button className="pay-now-btn" onClick={handlePayNow}>Pay Now</button> {/* Pay Now button */}
+          <button className="pay-now-btn" onClick={handlePayNow}>Pay Now</button>
           {paymentSuccess && (
             <div className="popup-message23">
               <div className="success-message">

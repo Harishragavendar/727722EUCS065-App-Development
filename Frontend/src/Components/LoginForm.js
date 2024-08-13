@@ -9,27 +9,39 @@ const LoginForm = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loginMessage, setLoginMessage] = useState('');
+  const [showPopup, setShowPopup] = useState(false);
   const navigate = useNavigate();
   const { setUserName1 } = useContext(UserContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const loginData = { username, password }; // 'username' should match what backend expects
+    const loginData = { username, password, role : 'ROLE_USER' };
 
     try {
-        const response = await axios.post('http://localhost:8080/auth/login', loginData);
-        const token = response.data.token;
-        console.log('Token:', token);
-        localStorage.setItem('authToken', token);
-        setLoginMessage('Login successful');
-        setUserName1(username);
+      const response = await axios.post('http://localhost:8080/auth/login', loginData);
+      const token = response.data.token;
+      console.log('Token:', token);
+      localStorage.setItem('authToken', token);
+      setUserName1(username);
+
+      setLoginMessage('Login successful');
+      setShowPopup(true);
+
+      setTimeout(() => {
+        setShowPopup(false);
         navigate('/dashboard');
+      }, 1000); // 2 seconds before navigating to the dashboard
+      
     } catch (error) {
-        setLoginMessage('Invalid username or password');
+      setLoginMessage('Invalid username or password'); // Error message
+      setShowPopup(true);
+
+      setTimeout(() => {
+        setShowPopup(false);
+      }, 2000); // 2 seconds before hiding the message
     }
   };
-
 
   return (
     <div className="login-container">
@@ -60,8 +72,12 @@ const LoginForm = () => {
         <div className="login-signup-link">
           Are you an Admin? <Link to="/admin"> Log in</Link>
         </div>
-        {loginMessage && <p className="login-message">{loginMessage}</p>}
       </form>
+      {loginMessage && (
+        <div className={`login-popup-message ${showPopup ? '' : 'hidden'} ${loginMessage.includes('successful') ? '' : 'error'}`}>
+          {loginMessage}
+        </div>
+      )}
     </div>
   );
 };

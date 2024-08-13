@@ -1,13 +1,27 @@
 import React, { useRef } from "react";
 import { Container } from "reactstrap";
-import { Link } from "react-router-dom";
 import "./header.css";
 
 const navLinks = [
-  
   {
-    display: "Phone",
-    url: "",
+    display: "Home",
+    url: "#home",
+  },
+  {
+    display: "About",
+    url: "#about",
+  },
+  {
+    display: "Courses",
+    url: "#courses",
+  },
+  {
+    display: "Pages",
+    url: "#pages",
+  },
+  {
+    display: "Blog",
+    url: "#blog",
   },
 ];
 
@@ -16,13 +30,20 @@ const Header = () => {
 
   const menuToggle = () => menuRef.current.classList.toggle("active__menu");
 
+  const handleScroll = (id) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <header className="header">
       <Container>
         <div className="navigation d-flex align-items-center justify-content-between">
           <div className="logo">
             <h2 className="d-flex align-items-center gap-1">
-              <i className="ri-pantone-line"></i> EduGo!
+              <i className="ri-pantone-line"></i> Welcome
             </h2>
           </div>
 
@@ -30,8 +51,12 @@ const Header = () => {
             <div className="nav__menu" ref={menuRef} onClick={menuToggle}>
               <ul className="nav__list">
                 {navLinks.map((item, index) => (
-                  <li key={index} className="nav__item">
-                    <Link to={item.url}>{item.display}</Link>
+                  <li
+                    key={index}
+                    className="nav__item"
+                    onClick={() => handleScroll(item.url.substring(1))}
+                  >
+                    <a href={item.url}>{item.display}</a>
                   </li>
                 ))}
               </ul>
@@ -39,7 +64,7 @@ const Header = () => {
 
             <div className="nav__right">
               <p className="mb-0 d-flex align-items-center gap-2">
-                <i className="ri-phone-line"></i> +91 0123456789
+                <i className="ri-phone-line"></i> +88 0123456789
               </p>
             </div>
           </div>

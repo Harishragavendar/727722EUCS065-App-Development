@@ -243,10 +243,11 @@
 .popup-message23.hidden {
   opacity: 0;
 }
-
 .manage-orders23 {
   margin: 20px;
   font-size: 16px;
+  overflow-y: auto; /* Enable vertical scrolling if content exceeds container height */
+  max-height: 80vh; /* Set a max-height to ensure the container doesn't grow indefinitely */
 }
 
 .manage-orders23 table {
@@ -254,7 +255,6 @@
   border-collapse: collapse;
   background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent white */
   border-radius: 8px;
-  overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
