@@ -46,7 +46,7 @@ const Flip3 = () => {
         <button onClick={closeModal} className="close-modal">×</button>
         <iframe
           src="https://heyzine.com/flip-book/565ce4797d.html"
-          style={{ width: '100%', height: '100%', border: 'none' }}
+          style={{ width: '85vw', height: '90vh', border: 'none' }}
           title="Flipbook"
         />
       </Modal>
