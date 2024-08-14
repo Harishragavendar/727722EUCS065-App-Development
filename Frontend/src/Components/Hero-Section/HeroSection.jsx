@@ -27,7 +27,7 @@ const HeroSection = () => {
                 your goals with flexible learning options tailored <br />
                 to fit your lifestyle.
               </p>
-              <button className="btn explore__btn" onClick={handleScroll}>
+              <button className=" explore__btn" onClick={handleScroll}>
                 Explore Now!
               </button>
             </div>

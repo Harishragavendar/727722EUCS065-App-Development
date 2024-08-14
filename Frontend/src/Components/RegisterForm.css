@@ -10,7 +10,7 @@
 }
 
 .register-form {
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.85);
   padding: 40px;
   border-radius: 10px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
@@ -44,7 +44,8 @@
   padding: 12px;
   border: none;
   border-radius: 5px;
-  background-color: #6e8efb;
+  /* background-color: #6e8efb; */
+  background-color: #7b2cbf;
   color: white;
   font-size: 16px;
   cursor: pointer;
@@ -52,7 +53,8 @@
 }
 
 .register-button:hover {
-  background-color: #577efb;
+  /* background-color: #577efb; */
+  background-color: #4b028b;
 }
 
 .register-signin-link {
@@ -63,7 +65,9 @@
 }
 
 .register-signin-link a {
-  color: #6e8efb;
+  /* color: #6e8efb; */
+  color: #7b2cbf;
+  font-weight: 800;
   text-decoration: none;
 }
 

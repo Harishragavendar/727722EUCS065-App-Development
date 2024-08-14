@@ -84,12 +84,13 @@
 }
 
 .side-panel23 ul li a:hover {
-  background-color: #34495e;
+  background-color: #9135e2;
   color: #fff;
 }
 
 .side-panel23 ul li a.active {
-  background-color: #1abc9c;
+  /* background-color: #1abc9c; */
+  background-color: #7b2cbf;
   color: #fff;
 }
 
@@ -149,7 +150,8 @@
 }
 
 .user-list23 table td button {
-  background-color: #4CAF50; /* Green for buttons */
+  /* background-color: #4CAF50;  */
+  background-color: #7b2cbf; 
   color: white;
   border: none;
   padding: 6px 12px;
@@ -160,7 +162,8 @@
 }
 
 .user-list23 table td button:hover {
-  background-color: #45a049;
+  /* background-color: #45a049; */
+  background-color: #300a52;
 }
 
 .add-user23,
@@ -194,7 +197,8 @@
 .add-user23 form button,
 .add-admin23 form button {
   padding: 10px 20px;
-  background-color: #4CAF50; /* Green background for buttons */
+  /* background-color: #4CAF50;  */
+  background-color: #7b2cbf; 
   color: white;
   border: none;
   border-radius: 4px; /* Rounded corners for buttons */
@@ -205,7 +209,8 @@
 
 .add-user23 form button:hover,
 .add-admin23 form button:hover {
-  background-color: #45a049; /* Slightly darker green on hover */
+  /* background-color: #45a049;  */
+  background-color: #490a80; 
   transform: scale(1.05); /* Slightly scale up on hover */
 }
 
@@ -216,7 +221,8 @@
 
 .add-user23 form button:active,
 .add-admin23 form button:active {
-  background-color: #388e3c; /* Even darker green on active press */
+  /* background-color: #388e3c; */
+  background-color: #7b2cbf;
 }
 
 .add-user23 p,
@@ -234,7 +240,8 @@
   color: #333;
   padding: 10px;
   border-radius: 5px;
-  border-left: 5px solid #4caf50;
+  /* border-left: 5px solid #4caf50; */
+  border-left: 5px solid #420677;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   z-index: 1000;
   transition: opacity 0.5s ease-in-out;
@@ -283,7 +290,8 @@
 }
 
 .manage-orders23 tbody button {
-  background-color: #007bff; /* Blue for buttons */
+  /* background-color: #007bff;  */
+  background-color: #7b2cbf; 
   color: white;
   border: none;
   padding: 8px 12px;
@@ -292,7 +300,8 @@
 }
 
 .manage-orders23 tbody button:hover {
-  background-color: #0056b3;
+  /* background-color: #0056b3; */
+  background-color: #480a7f;
 }
 
 .manage-orders23 p {

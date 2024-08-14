@@ -30,25 +30,27 @@
   flex-direction: column;
   align-items: center;
   margin-top: 20px;
+  font-size: larger;
 }
 
 .answer-button {
-  background-color: rgb(70, 152, 246);
+  color: white;
+  background-color: #ba88e5;
   border: 3px solid black;
   width: 100%;
   max-width: 60vw;
   padding: 20px;
   margin: 10px 0;
-  font-size: 18px;
-  font-weight: 400;
+  font-size: 24px;
+  font-weight: 600;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 10px;
   transition: background-color 0.3s ease;
   box-sizing: border-box;
 }
 
 .answer-button:hover {
-  background-color: #ddd;
+  background-color: #9d4edd;
 }
 
 #load {

@@ -26,13 +26,13 @@ const OnlineClasses = () => {
     },
     {
       title: "Math Fun and Games",
-      description: "Engage in playful math activities and games that make learning numbers and problem-solving exciting.",
+      description: "Engage in playful math activities and games that make learning numbers exciting.",
       price: "₹800",
       image: mathImg
     },
     {
       title: "Science Experiments for Kids",
-      description: "Discover the wonders of science with simple, safe, and fun experiments at home.",
+      description: "Discover the wonders of science with fun experiments at home.",
       price: "₹1,500",
       image: scienceImg
     },

@@ -99,7 +99,7 @@ const Footer = () => {
             </ListGroup>
           </Col>
 
-          <Col lg="3" md="6" className="mb-4">
+          {/* <Col lg="3" md="6" className="mb-4">
             <h6 className="fw-bold">Information</h6>
             <ListGroup className="link__list">
               {footerInfoLinks.map((item, index) => (
@@ -109,7 +109,7 @@ const Footer = () => {
                 </ListGroupItem>
               ))}
             </ListGroup>
-          </Col>
+          </Col> */}
 
           <Col lg="3" md="6">
             <h6 className="fw-bold">Get in Touch</h6>

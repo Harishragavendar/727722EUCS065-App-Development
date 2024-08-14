@@ -12,7 +12,7 @@ import "./free-course.css";
 const freeCourseData = [
   {
     id: "01",
-    title: "Fun with Web Development",
+    title: "Creative Art for Kids",
     imgUrl: courseImg01,
     students: 150,
     rating: 4.8,
@@ -27,7 +27,7 @@ const freeCourseData = [
 
   {
     id: "03",
-    title: "Exploring SEO Basics",
+    title: "Math Fun and Games",
     imgUrl: courseImg03,
     students: 120,
     rating: 4.7,
@@ -35,7 +35,7 @@ const freeCourseData = [
 
   {
     id: "04",
-    title: "Design with Figma - Basics",
+    title: "Science Experiments for Kids",
     imgUrl: courseImg04,
     students: 130,
     rating: 4.6,

@@ -62,12 +62,14 @@
 .course-price {
   font-size: 18px;
   font-weight: bold;
-  color: #4CAF50;
+  /* color: #4CAF50; */
+  color: #7b2cbf;
 }
   
 .enroll-button {
   padding: 10px 20px;
-  background-color: #4CAF50;
+  /* background-color: #4CAF50; */
+  background-color: #7b2cbf;
   color: white;
   border: none;
   cursor: pointer;
@@ -80,5 +82,6 @@
 }
   
 .enroll-button:hover {
-  background-color: #45a049;
+  /* background-color: #45a049; */
+  background-color: #4e098a;
 }

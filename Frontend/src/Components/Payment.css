@@ -46,7 +46,7 @@
   height: 200px;
   padding: 20px;
   border-radius: 12px;
-  background: linear-gradient(135deg, #007bff 30%, #6610f2 100%);
+  background: linear-gradient(135deg, #220061 30%, #6610f2 100%);
   color: #fff;
   font-family: 'Courier New', Courier, monospace;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
@@ -115,7 +115,6 @@
 }
 
 .form-group input[type="text"]:focus {
-  border-color: #007bff;
   box-shadow: 0 0 4px rgba(0, 123, 255, 0.2);
 }
 
@@ -130,7 +129,7 @@
   font-size: 1rem;
   border: none;
   border-radius: 4px;
-  background-color: #007bff;
+  background: linear-gradient(135deg, #220061 30%, #6610f2 100%);
   color: #fff;
   cursor: pointer;
   margin-top: 20px;

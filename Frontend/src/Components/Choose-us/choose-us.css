@@ -36,7 +36,8 @@
 }
 
 .play__icon i {
-  color: #17bf9e;
+  /* color: #17bf9e; */
+  color: #7b2cbf;
   font-size: 2rem;
   padding: 10px;
 }

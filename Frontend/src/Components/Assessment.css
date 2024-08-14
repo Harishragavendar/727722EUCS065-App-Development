@@ -54,7 +54,8 @@
 }
 
 #answer-button65 {
-  background: #4CAF50;
+  /* background: #4CAF50; */
+  background: #7b2cbf;
   color: white;
   border: none;
   padding: 15px;
@@ -66,7 +67,8 @@
 }
 
 #answer-button65:hover {
-  background: #45a049;
+  /* background: #45a049; */
+  background: #511585;
 }
 
 .score-section65 {
@@ -74,7 +76,8 @@
 }
 
 .next-button65 {
-  background: #008CBA;
+  /* background: #008CBA; */
+  background: #7b2cbf;
   color: white;
   border: none;
   padding: 15px 20px;
@@ -85,5 +88,6 @@
 }
 
 .next-button65:hover {
-  background: #007bb5;
+  /* background: #007bb5; */
+  background: #5c02aa;
 }

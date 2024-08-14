@@ -21,7 +21,8 @@
 }
 
 .nav__item a:hover {
-  color: #17bf9e;
+  /* color: #17bf9e; */
+  color: #7b2cbf;
 }
 
 .nav__right p {
@@ -80,4 +81,11 @@
   .active__menu {
     display: block;
   }
+}
+i{
+  color: #7b2cbf;
+}
+button.btn{
+  background: #7b2cbf;
+  
 }

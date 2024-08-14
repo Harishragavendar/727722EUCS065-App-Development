@@ -334,6 +334,7 @@ const AdminDashboard = () => {
                     <tr key={user.id}>
                       {editingUser?.id === user.id ? (
                         <>
+                        <td>{user.id}</td>
                           <td>
                             <input
                               type="text"
@@ -350,6 +351,7 @@ const AdminDashboard = () => {
                               onChange={handleInputChange}
                             />
                           </td>
+                          <td>{user.roles}</td>
                           <td>
                             <button onClick={() => handleSave(user.id)}>Save</button>
                             <button onClick={() => setEditingUser(null)}>Cancel</button>

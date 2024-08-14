@@ -1,7 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Contact.css';
 
 const Contact = () => {
+    const [submitted, setSubmitted] = useState(false);
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        setSubmitted(true);
+    };
+
     return (
         <div className="contact-container">
             <div className="all10">
@@ -22,28 +29,32 @@ const Contact = () => {
                     </div>
                     <div className="contact-item10">
                        <h2 className="head10"><i className="fas fa-envelope"></i> Email</h2>
-                       <p className="desc10">info@example.com</p>
+                       <p className="desc10">edugo@example.com</p>
                     </div>
-                    <h1 className='head10'>Connect With Us</h1>
-                    <form className="contact-form10">
-                        <div className="form-item10">
-                            <label htmlFor="fname" className="form-label10">First Name</label>
-                            <input type="text" id="fname" name="fname" className="form-input10" required />
-                        </div>
-                        <div className="form-item10">
-                            <label htmlFor="lname" className="form-label10">Last Name</label>
-                            <input type="text" id="lname" name="lname" className="form-input10" required />
-                        </div>
-                        <div className="form-item10">
-                            <label htmlFor="email" className="form-label10">Email</label>
-                            <input type="email" id="email" name="email" className="form-input10" required />
-                        </div>
-                        <div className="form-item10">
-                            <label htmlFor="message" className="form-label10">What can we help you with?</label>
-                            <textarea id="message" name="message" className="form-input10" rows="4" required></textarea>
-                        </div>
-                        <button type="submit" className="submit-button10">Submit</button>
-                    </form>
+                    <h1 className="head10">Connect With Us</h1>
+                    {!submitted ? (
+                        <form className="contact-form10" onSubmit={handleSubmit}>
+                            <div className="form-item10">
+                                <label htmlFor="fname" className="form-label10">First Name</label>
+                                <input type="text" id="fname" name="fname" className="form-input10" required />
+                            </div>
+                            <div className="form-item10">
+                                <label htmlFor="lname" className="form-label10">Last Name</label>
+                                <input type="text" id="lname" name="lname" className="form-input10" required />
+                            </div>
+                            <div className="form-item10">
+                                <label htmlFor="email" className="form-label10">Email</label>
+                                <input type="email" id="email" name="email" className="form-input10" required />
+                            </div>
+                            <div className="form-item10">
+                                <label htmlFor="message" className="form-label10">What can we help you with?</label>
+                                <textarea id="message" name="message" className="form-input10" rows="4" required></textarea>
+                            </div>
+                            <button type="submit" className="submit-button10">Submit</button>
+                        </form>
+                    ) : (
+                        <p className="success-message10">Thank you! We will get back to you soon.</p>
+                    )}
                 </div>
             </div>
         </div>

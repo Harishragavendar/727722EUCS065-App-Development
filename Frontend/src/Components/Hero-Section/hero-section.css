@@ -13,7 +13,8 @@
 }
 
 .explore__btn {
-  background-color: #17bf9d;
+  /* background-color: #17bf9d; */
+  background-color: #7b2cbf;
   color: #fff;
   padding: 10px 20px;
   border-radius: 50px;
@@ -22,6 +23,8 @@
   transition: background-color 0.3s ease;
 }
 
+
 .explore__btn:hover {
-  background-color: #139b7a;
+  /* background-color: #139b7a; */
+  background-color: #3c096c;
 }

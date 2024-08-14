@@ -9,7 +9,7 @@ import CourseCard from "./CourseCard";
 const coursesData = [
   {
     id: "01",
-    title: "Fun with Coding: Build Your First Website from scratch ",
+    title: "The Art of Puzzle Solving",
     lesson: 10,
     students: 20,
     rating: 4.8,
@@ -27,7 +27,7 @@ const coursesData = [
 
   {
     id: "03",
-    title: "Introduction to Game Design: Create Your Own Adventure",
+    title: "Introduction to Mathematics",
     lesson: 15,
     students: 25,
     rating: 4.9,
@@ -48,7 +48,6 @@ const Courses = () => {
                 <p>
                   Welcome to our exciting world of learning! These courses are 
                   designed to spark curiosity and creativity in young minds. 
-                  From designing fun websites to creating colorful graphics, 
                   each course is a journey full of discovery and hands-on activities. 
                   Let’s embark on a learning adventure together!
                 </p>
